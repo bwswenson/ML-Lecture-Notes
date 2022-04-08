@@ -40,5 +40,4 @@ clf = clf.fit(x_train, y_train)
 
 acc = clf.score(x_test, y_test)
 print(f'acc = {acc}')
-# tree.plot_tree(clf)
-
+tree.plot_tree(clf)
