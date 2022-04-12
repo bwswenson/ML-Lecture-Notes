@@ -29,7 +29,7 @@ import numpy as np
 # import graphviz 
 iris = load_iris()
 X, y = iris.data, iris.target
-
+ 
 # train/test split
 x_train, x_test, y_train, y_test = train_test_split(X, 
                                                     y, 
