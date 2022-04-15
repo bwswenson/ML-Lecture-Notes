@@ -1,6 +1,7 @@
 """
 Info here.
 """
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -36,4 +37,20 @@ fig = plot_decision_regions(X=X, y=y, clf=clf2, legend=2)
 plt.title("Random forest")
 
 
+RF_trees = []
+for _ in range(10):
+    
+    # Bootstrap new dataset
+    n_datapoints = X.shape[0]
+    indices = np.random.choice(range(n_datapoints), shape=(n_datapoints,))
+    X_bootstrap = X[indices]
+    y_bootstrap = y[indices]
+    
+    # train new tree
+    clf = DecisionTreeClassifier()
+    clf.fit(X_bootstrap, y_bootstrap)
+    RF_trees.append(clf)
+
+# To do: Need to finish this line. Take majority vote here. Not positive how to do this efficiently. 
+# custom_RF = lambda x: # To do
 
