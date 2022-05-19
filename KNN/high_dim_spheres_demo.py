@@ -1,5 +1,7 @@
 """
-Demo:  
+Demo: This shows how points sampled uniformly from a high dimensional sphere 
+tend to be far aprt. To make it easier to draw samples, points are drawn from
+the L\infty ball and distances are measured in terms of L\infty norm. 
 """
 
 import numpy as np
