@@ -1,0 +1,35 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Linear Algebra}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Singular Value Decomposition}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Pseudo Inverse}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Low-Rank Matrix Approximation}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Important Matrix Decompositions}{7}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Exercises}{7}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Calculus and Analysis For Machine Learning}{9}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Least Squares and Linear Regression}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Least Squares: Linear Algebra Perspective}{11}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Standard Least Squares: $m>n$}{11}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Other case: $m<n$}{12}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Least Squares and the Pseudo Inverse}{12}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Gauss-Markov Theorem: Least Squares and MLE}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Ridge Regression}{13}{section.3.3}%
+\contentsline {section}{\numberline {3.4}LASSO and Elastic Nets}{13}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Bayesian Linear Regression}{13}{section.3.5}%
+\contentsline {section}{\numberline {3.6}LASSO}{15}{section.3.6}%
+\contentsline {chapter}{\numberline {4}PCA}{17}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Other fun topics/one off topics}{19}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Other notes/Daily notes}{21}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Gaussian Distribution: Normalizing Constant 5/24/24}{21}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Polar Change of Coordinates}{21}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Change of Variables}{22}{section.6.3}%
+\contentsline {subsubsection}{Building Intuition}{27}{section*.5}%
+\contentsline {section}{\numberline {6.4}High dimensional spaces}{29}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Volume of $d$-ball}{29}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Balls and Cubes}{30}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Most of the mass is near the equator}{30}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Most of the volume is near the surface}{30}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}Distances between randomly sampled points}{30}{subsection.6.4.5}%
+\contentsline {subsection}{\numberline {6.4.6}Digression: Lp balls}{30}{subsection.6.4.6}%
+\contentsline {subsection}{\numberline {6.4.7}Discussion}{30}{subsection.6.4.7}%
+\contentsline {section}{\numberline {6.5}High Dimensional Gaussian }{31}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Radial density of Gaussian}{31}{subsection.6.5.1}%
