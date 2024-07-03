@@ -29,6 +29,7 @@
 
 % Define theorem like objects
 \newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 
 \usepackage{mathtools}
 \mathtoolsset{showonlyrefs}
@@ -899,15 +900,20 @@ The ball of radius $r$ in $\R^d$ is given by
 $$
 B_r := \{ x\in \R^d: \|x\| \leq r\}.
 $$
-The volume of the ball in $d$ dimensions is obtained by integration. There are a few different ways of doing this, some very clever.\footnote{I was tempted to put in the version that uses the Gaussian integral, since we solved that in the CoV section. But it makes an assumption about a proportionality relationship with the surface area of high dimensional spheres that isn't obvious. And I didn't want to have to prove. And integrating this stuff out isn't really the point of these notes. So, I took the lazy route of just giving a high level idea of the brute force approach, but skipping the details because they're tedious and don't advance the objective of these notes.} But the brute force way is to just integrate in $d$ dimensions analogous to how you've done it in 3. Set up the integral you want to solve in cartesian coordinates. Do a change of variables to spherical coordinates. (Hyper)-spherical coordinates in $d$ dimensions are defined analogous to the 3d case, and you can look up the conversion and wrap your head around how it works. At the end of the day, you solve the integral
+The volume of the ball in $d$ dimensions is obtained by integration. There are a few different ways of doing this, some pretty clever.\footnote{I was tempted to put in the version that uses the Gaussian integral, since we solved that in the CoV section. But it makes an assumption about a proportionality relationship with the surface area of high dimensional spheres that isn't obvious. And I didn't want to have to prove. And integrating this stuff out isn't really the point of these notes. So, I took the lazy route of just giving a high level idea of the brute force approach, but skipping the details because they're tedious and don't advance the objective of these notes.} But the brute force way is to just integrate in $d$ dimensions analogous to how you've done it in 3. Set up the integral you want to solve in cartesian coordinates.
+$$
+\int_{B_r} \dx_1\cdots \dx_d.
+$$
+Do a change of variables to spherical coordinates. (Hyper)-spherical coordinates in $d$ dimensions are defined analogous to the 3d case, and you can look up the conversion and wrap your head around how it works. At the end of the day, you solve the integral
 $$
 \int r^{d-1} \sin^{d-2}(\phi_1)\cdots\sin(\phi_{d-1}) d\phi_{d-1}\cdots d\phi_{1} dr,
 $$
 where I've omitted the domain because I'm lazy. But it's a product of intervals. So, a high dimensional rectangle. You chug through this integral and you get that the volume of the $d$ ball of radius $r$ is given by
-$$
+\begin{equation} \label{eq:vol-of-ball}
 V_d(r) = \frac{\pi^{d/2}r^d}{\Gamma(\frac{d}{2} + 1)}. 
-$$
-Just think of the Gamma function as an extension of the factorial to non integer values. Figure \ref{fig:volumes-of-balls}, taken from wikipedia, plots the volume of a few different balls as the dimension increases. Note that the volume of a ball plummets to zero as $d\to\infty$. For bigger radii, the volume will be a lot bigger in lower dimensions, but no matter what, the volume of any ball goes to zero as $d\to \infty$. That's freaking weird. \
+\end{equation}
+Just think of the Gamma function as an extension of the factorial to non integer values. 
+Figure \ref{fig:volumes-of-balls}, taken from wikipedia, plots the volume of a few different balls as the dimension increases. Note that the volume of a ball plummets to zero as $d\to\infty$. For bigger radii, the volume will be a lot bigger in lower dimensions, but no matter what, the volume of any ball goes to zero as $d\to \infty$. That's freaking weird. 
 \begin{figure}[h]
      \centering
      \begin{subfigure}[b]{0.4\textwidth}
@@ -931,7 +937,8 @@ Good way to approach this: Don't state the title about your intuition is wrong. 
 
 
 \subsection{Balls and Cubes}
-Discuss how the cube starts to poke out of the ball. 
+Consider a ball of radius 1/2 inscribed inside a cube of width 1. e.g., 2d example. The ball always touches the surface of the cube. As $d$ increases, the volume of the cube stays one. But the volume of the sphere inside goes to zero (quickly!). As another example, consider a ball of radius 1 and cube of width 1. Draw in 2d. The cube is contained well within the ball. But when we go to 3 dimensions, the gap closes a bit. The corner of the cube is at $\sqrt{d/2^2} = 1/2\sqrt{d}$. At $d=4$ the corners of the unit cube touch the surface of the ball of radius 1. For $d>5$, the corners poke through the surface. Moreover, there are $2^d$ vertices poking through. 
+
 
 \subsection{Most of the mass is near the equator}
 %\begin{figure} \label{fig:volumes-of-balls}
@@ -939,17 +946,49 @@ Discuss how the cube starts to poke out of the ball.
 %\includegraphics[scale = .5]{high_dimensional_space/Volumes_of_unit_balls.png}
 %\caption{Volumes of $d$ balls.}
 %\end{figure}
+See section 1.2.3 of the cmu book chapter on geometry of high dimensional spaces. 
+
+Consider a small slice through the ball near some equator. That is, consider the portion of the ball that lies "above" the plane where $x_1 = \epsilon$. One can show that very little of the volume of the sphere lies in this region. This is accomplished by simply integrating (and using a few approximations). Add this if I have time. But the end result is the following lemma. 
+\begin{lemma}
+For any $c>0$, the volume of the hemisphere above the plane $x_1 = \frac{c}{\sqrt{d-1}}$ is less thatn $\frac{2}{c}e^{-c^2/2}$. 
+\end{lemma}
+This shows that the mass above the 
+
 
 \subsection{Most of the volume is near the surface}
-This basically comes down to the simple fact that the volume of the ball is $cr^d$. If you plot the volume contained in an inner ball of radius $r$ inside of a ball of radius $R$, the plot is going to be exactly $r^d$ on $[0, R]$. Most of the mass is going to be near the surface. I guess you can probably show an estimate too. 
+(Copied from cmu book.) By \eqref{eq:vol-of-ball}, the ratio of the volume of a sphere of radius $1-\eps$ to the volume of a unit sphere in $d$ dimensions is $
+(1-\eps)^d.$
+This is shown in Figure \ref{fig:vol-near-surf}. 
+The higher the dimension, the more the volume is concentrated on the surface of the sphere. 
+\begin{figure} \label{fig:vol-near-surf}
+\centering
+\includegraphics[scale = .5]{high_dimensional_space/vol-near-surf.png}
+\caption{Volume near surface of sphere.}
+\end{figure}
+
+\subsection{High dimensional cubes}
+The fact that most of the volume of a high dimensional ball is near the surface is a little more transparent when you look at hypercubes. (Which, I'm going to call a ball, even though by ball here, we really do only mean L2 ball, which is an important distinction. The volume near the surface property is probably true for any convex body?) 
+Consider a unit cube, and the volume outside the inner cube with side length $1-\epsilon$. Draw this out for 1, 2, and 3d. The volume of the inner region diminishes as $(1-\eps)^d$. (See other notes on this for a compelling presentation.) 
+
 
 \subsection{Distances between randomly sampled points}
 Suppose you sample two points uniformly at random from the unit ball. How far apart will they be? Show demo. Answer is that even though the volume of the ball is going to zero, the distance between randomly sampled points converges to a constant. State a general result about distance between furthest and closes points, for iid case. (Technically, this won't cover the ball case. But it tells us something.) 
 
-Question: What does this mean about things like knn? Briefly discuss paper when is nearest neighbors meaningful. Moral: You need to be careful about the meaning of distance metrics and similarity in high dimensions. 
+Question: What does this mean about things like knn? Under reasonably general conditions, you can show that as the dimension grows large, the distinction between nearest and furthest point vanishes. An example of this is the following result. 
+\begin{theorem}
+Suppose that $X_n\in \R^d$ is composed of $d$ iid random variables and that for some $k\geq 1$, $\lim_{d\to\infty} \frac{\|X_d\|_k}{\E \|X_d\|_k} = 0$. Then 
+$$
+\frac{D_{max, d}^k - D_{min, d}^k}{D_{min, d}^k} \to_{p} 0 \quad as \quad d\to \infty,
+$$
+where $\to_p$ indicates convergence in probability to the point mass on zero. 
+\end{theorem}
+
+Example: Sampling points from the $d$-cube. (TODO: Add computational example. TODO: Is there an interesting two-class classification version of this? Like, can you distinguish between points on opposite sides of a hypercube? Probably best to just look at that paper. TODO: If I don't have time to do this now, then that's OK. Maybe this is good fodder for discussion. When does this tell us about when knn breaks down? How does this impact things like neural networks operating in high dimensional spaces?)  
+
+Moral: You need to be careful about the meaning of distance metrics and similarity in high dimensions. 
 
 \subsection{Digression: Lp balls}
-Question: We've implicitly looked at l2 and l-infty balls. You can consider similar properties for other lp balls. Note paper about surprising properties of distances. Can consider fractional distances, and these tend to be a little more meaningful
+Question: We've implicitly looked at l2 and l-infty balls. You can consider similar properties for other lp balls. Note paper about surprising properties of distances. Add reference. Moral of that paper: Can consider fractional distances, and these tend to be a little more meaningful. 
 
 \subsection{Discussion}
 Mention things like, is data really usually high dimensional. No. usually does something like live in a lower dimensional manifold. Touch on importance of dimensionality reduction for being able to say meaningful things about data in something like knn. Touch on PCA and isomap. 
