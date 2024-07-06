@@ -645,7 +645,7 @@ $$
 \P(Y\in A) = \int_A f_X(h(y)) |\det Dh(y))|\dy
 $$
 Since this holds for all $A$ (ignoring measurability considerations), we see that the integrand on the RHS must be the density of $Y$, hence
-\begin{equation} \label{eq:pullbackY} % is this the pullback?? TODO: Double check. 
+\begin{equation} \label{eq:pushforwardY} % is this the pushforward?? TODO: Double check. 
 f_Y(y) = f_X(h(y)) |\det Dh(y))|.
 \end{equation}
 Any time you need an analytic expression for a function of a random variable, the change of variables formula is indispensable. 
@@ -684,7 +684,7 @@ The definition of the expectation of a random variable is
 $$
 \E[Z] := \int x f_Z(z) dz. 
 $$
-Consider the simple case where $X$ is scalar-valued and $g$ is a $C^1$ diffeomorphism. Applying \eqref{eq:pullbackY}, we know that the density function for $Y = g(X)$ is
+Consider the simple case where $X$ is scalar-valued and $g$ is a $C^1$ diffeomorphism. Applying \eqref{eq:pushforwardY}, we know that the density function for $Y = g(X)$ is
 $$
 f_Y(y) = f_X(g^{-1}(y)) |(g^{-1}(y)')
 $$
@@ -817,7 +817,7 @@ h(\theta, \phi) = g^{-1}(\theta, \phi) =
 (\cos(\phi) - 1)/2
 \end{pmatrix}
 $$ and 
-applying \eqref{eq:pullbackY} we immediately get that $f_{\theta, \phi}(\theta, \phi) = \frac{1}{4\pi}\sin(\phi)$. The domain of the density comes from looking at the range $g(u, v)$. 
+applying \eqref{eq:pushforwardY} we immediately get that $f_{\theta, \phi}(\theta, \phi) = \frac{1}{4\pi}\sin(\phi)$. The domain of the density comes from looking at the range $g(u, v)$. 
 
 It should be noted that this is the hard way of sampling from the unit sphere. The easy way is to sample from a gaussian and then normalizing the samples. But this examples builds intuition that I think can generally be helpful. 
 
@@ -932,7 +932,7 @@ Figure \ref{fig:volumes-of-balls}, taken from wikipedia, plots the volume of a f
 \end{figure}
 
 
-Good way to approach this: Don't state the title about your intuition is wrong. Just ask to speculate about some properties? I don't know. Maybe start by focusing on 1 ball. Consider what volume does as dimension increases. It's bizarre that it goes to zero. Then consider $r>1$. And note that no matter how big the radius of the ball, eventually it goes to zero. This has to do with Euclidean topology. If you consider other $Lp$ balls, I don't think they do this. 
+%Good way to approach this: Don't state the title about your intuition is wrong. Just ask to speculate about some properties? I don't know. Maybe start by focusing on 1 ball. Consider what volume does as dimension increases. It's bizarre that it goes to zero. Then consider $r>1$. And note that no matter how big the radius of the ball, eventually it goes to zero. This has to do with Euclidean topology. If you consider other $Lp$ balls, I don't think they do this. 
 
 
 
@@ -946,20 +946,23 @@ Consider a ball of radius 1/2 inscribed inside a cube of width 1. e.g., 2d examp
 %\includegraphics[scale = .5]{high_dimensional_space/Volumes_of_unit_balls.png}
 %\caption{Volumes of $d$ balls.}
 %\end{figure}
-See section 1.2.3 of the cmu book chapter on geometry of high dimensional spaces. 
+See section 1.2.3 of the CMU book chapter on geometry of high dimensional spaces. 
 
-Consider a small slice through the ball near some equator. That is, consider the portion of the ball that lies "above" the plane where $x_1 = \epsilon$. One can show that very little of the volume of the sphere lies in this region. This is accomplished by simply integrating (and using a few approximations). Add this if I have time. But the end result is the following lemma. 
+Consider a small slice through the ball near some equator. That is, consider the portion of the ball that lies "above" the plane where $x_1 = \epsilon$. One can show that very little of the volume of the sphere lies in this region. This is accomplished by simply integrating (and using a few approximations). Add this if I have time. But I'm not sure it's worth the trouble of working through the integration. the end result is the following lemma. 
 \begin{lemma}
-For any $c>0$, the volume of the hemisphere above the plane $x_1 = \frac{c}{\sqrt{d-1}}$ is less thatn $\frac{2}{c}e^{-c^2/2}$. 
+For any $c>0$, the volume of the hemisphere above the plane $x_1 = \frac{c}{\sqrt{d-1}}$ is less than $\frac{2}{c}e^{-c^2/2}$. 
 \end{lemma}
-This shows that the mass above the 
+Intuitively, I think this makes a lot of sense. You're fixing a plane by setting $x_1=0$ and considering a $\epsilon$ padding of that plane, and considering how much mass is in that padded region. While it's true that $\epsilon$ is small, by considering a plane, you're considering an $d-1$ dimensional set. When you move in the orthogonal direction, you only have 1 dimension to move in. In some sense, this dimension can't contain a lot of volume. Most of the volume is contained near the plane. 
 
+You can get some intuition for this by going from 2 dimensions to 3 dimensions. If you fix a diametric plane in 2 dimensions, then moving orthogonal to the plane you capture a lot of volume. Now do the same thing in three dimensions. More of the volume is contained near the equatorial plane. As the dimension increases, more and more of the volume is contained near $d-1$ dimensional equatorial hyperplane. 
+
+While the idea that most of the mass is near the equator, its implication in practice is almost stupidly obvious. Suppose you draw a uniform random sample from the unit ball. Then with high probability, all of the coordinates are going to be small. This makes sense when you think of the fact that the norm of the sample must be contained near within a radius of $1$. If any one of the components is close to 1, then the others have to be really, really tiny. Another way to think about it, suppose that $x_i = $ big, for some coordinate $i$. This means that the other coordinates must all be contained in a very small $d-1$ dimensional ball. But the product of a tiny $d-1$ dimensional ball with, even the entire diameter of the circle, is going to have really small volume. So, that's not going to happen. 
 
 \subsection{Most of the volume is near the surface}
 (Copied from cmu book.) By \eqref{eq:vol-of-ball}, the ratio of the volume of a sphere of radius $1-\eps$ to the volume of a unit sphere in $d$ dimensions is $
 (1-\eps)^d.$
 This is shown in Figure \ref{fig:vol-near-surf}. 
-The higher the dimension, the more the volume is concentrated on the surface of the sphere. 
+The higher the dimension, the more the volume is concentrated on the surface of the sphere. This basically follows from the fact that the higher $d$, the more $x^d$ looks flat below 1 and like a wall straight up at 1. 
 \begin{figure} \label{fig:vol-near-surf}
 \centering
 \includegraphics[scale = .5]{high_dimensional_space/vol-near-surf.png}
@@ -1020,32 +1023,114 @@ $$
 f_w(w) = cw^{\frac{d}{2} - 1}e^{-\frac{d}{2}},
 $$
 and $c$ is a proportionality constant that I'm ignorning.
-Applying the change of variables expression \eqref{eq:pullbackY}, we can compute the density of $r$. We have $h(r) = g^{-1}(r) = r^2$ and $Dh = 2r$. Subbing this in we get
+Applying the change of variables expression \eqref{eq:pushforwardY}, we can compute the density of $r$. We have $h(r) = g^{-1}(r) = r^2$ and $Dh = 2r$. Subbing this in we get
 $$
 f_r(r) = cr^{d - 2}e^{-\frac{r^2}{2}}r = cr^{d-1}e^{-\frac{r^2}{2}}, 
 $$
 where we absorb stuff into the constant. 
+We would like to characterize where most of the mass of $f_r(r)$ lies. A plot of $f_r(r)$ for various values of $d$ is shown in Figure ??. In general, the plots suggest that $f_r(r)$ is log concave, and most of the mass is concentrated in a band that increases roughly as $\sqrt{d-1}$. Our plan of attack will be 
+\begin{enumerate}
+ \item Take the log of the density, so we hopefully deal with a concave function
+ \item Consider an interval $I$ of width $2d$ about the maximum of the function. We'll try and characterize the amount of mass in this interval. 
+ \item Construct a second order approximation of the function. In particular, construct an upper bound on the function and then use this to bound the amount of mass outside of the interval. 
+ \item Because we've been cavalier with the proportionality constant, we don't know what the total mass of $f$ is. (It's not a probability density.) We'll come up with a lower bound on the total mass of $f_r$ and use that to estimate the fraction of mass in the interval $I$. 
+ \item Continuing with the previous point, let $M_{\bar I}$ be the mass outside the interval $I$ and let $TM$ denote the total mass. We are interested in estimating
+ $$
+ \mbox{quantity of interest } = \frac{M_{\bar I}}{TM}.
+ $$
+We'll compute an upper bound on $M_{\bar I}$ and a lower bound on $TM$, to get an upper bound estimate on the quantity of interest. If we can say that QOI is small, then it means that most off the mass lies in the interval $I$. Through all of this, we'll make our estimate depend on $c$, the width parameter of $I$, so that we'll be able to estimate the amount of mass in $I$ as a function of width. 
+\end{enumerate}
 
-Outline:
-- Question: If you sample from a high dimensional gaussian, can you say roughly where it will lie radially?
-- Idea: the density has the most mass near the origin. But there's almost no volume here. The probability of drawing a sample from a set $A$ is $\int_A f_X(x)\dx$. There's almost no volume here. So the probability of drawing a sample will be small. Eventually, when you get far out, there's tons of volume, but the density drops off. So, again, unlikely to get samples out there. Is there a happy medium where most of the mass lies? (Think of it like, high density in the middle, but no volume, so low overall mass. The probability of sampling from a given region is given by the mass of the region. It's a weird but cool way to think about things.) 
-- Derive density in terms of r
-- Show that most of the mass lies near the surface of a sphere. (TODO: There is one step in this proof that I'm not following. Go back and look this up.) 
-- Show a plot of the density we derived. Show that it clearly concentrates near where we said it would. 
-- Draw some samples from a high dimensional gaussian.  
-- Comments:
-  - we think that samples would lie near the mode. But they don't. Also, a gaussian is log concave. So we sort of think that samples should roughly lie in a convex set. But they really don't. Which is important, I imagine, because if you think a set is convex but it's not, you can get yourself into some real trouble, especially if you're in optimization land. 
-  - Example: Information theory and perturbations of high dimensional signals. 
+We now proceed along those lines. 
+Disregarding the proportionality constant, let 
+$$
+g(r) := r^{d - 2}e^{-\frac{r^2}{2}}r = cr^{d-1}e^{-\frac{r^2}{2}} \quad \mbox{ and } \quad f(r) = \log g(r) = (d-1) \log(r) - \frac{r^2}{2}.
+$$
+Note that 
+$$
+f'(r) = \frac{d-1}{r} - r \quad \mbox{ and } f''(r) = \frac{-(d-1)}{r^2} - 1 \leq -1.
+$$
+The second inequality implies that $f(r)$ is concave (and $g(r)$ log concave). Hence, solving for $f'(r) = 0$, we see that $f$ is maximized at $\sqrt{d-1}$. Applying Taylor's theorem about $r=\sqrt{d-1}$ and we have
+\begin{align}
+\label{eq:gauss-sphere-f-taylor}
+f(r) & = f(\sqrt{d-1}) + \underbrace{f'(\sqrt{d-1})}_{=0}(r-\sqrt{d-1}) + \frac{1}{2}f''(\zeta)(r-\sqrt{d-1})^2\\ 
+& \leq f(\sqrt{d-1}) - \frac{1}{2}(r-\sqrt{d-1})^2
+\end{align}
+for some $\zeta$ between $r$ and $\sqrt{d-1}$. In the first line, we have applied a form of Taylor's theorem where we explicitly handle the remainder. (This can be found on Wikipedia, and would be a good topic for future notes. On the board, maybe set this part up by first stating the standard form of Taylor's theorem. Then backtrack and note that this this other convenient form that allows us to explicitly handle the remainder. Though, to be honest, could you just use the standard form?) In the last line, we apply the fact that $f''(\zeta) \leq -1$. 
+By the definition of $f$, this gives
+\begin{align}
+g(r) & = \exp(f(r)) \\
+& \leq \exp(f(\sqrt{d-1}) - \frac{1}{2}(r-\sqrt{d-1})^2 )\\
+&  = g(\sqrt{d-1})\exp(-\frac{1}{2}(r-\sqrt{d-1})^2 ).
+\end{align}
+As desired, we have a simple ``quadratic'' estimator on $g$. Let $r_d = \sqrt{d-1}$, because I'm tired of writing this, and for a constant $c>0$ consider the interval 
+$$
+I = \{r_d - c, r_d+c\}. 
+$$
+Let's try to bound the mass outside this interval using our quadratic overestimator. 
+\begin{align}
+\int_{r\not\in I} g(r)\dr & \leq \int_0^{r_d - c} g(\sqrt{d-1})\exp(-\frac{1}{2}(r-\sqrt{d-1})^2 ) \dr + \int _{r_d+c}^{\infty} g(\sqrt{d-1})\exp(-\frac{1}{2}(r-\sqrt{d-1})^2 )\dr\\
+& \leq 2g(\sqrt{d-1})\int _{r_d+c}^{\infty} \exp(-\frac{1}{2}(r-\sqrt{d-1})^2 )\dr\\
+& = 2g(\sqrt{d-1})\int _{c}^{\infty} \exp(-y^2/2)\dy\\
+& \leq 2g(\sqrt{d-1}) \int _{c}^{\infty} \frac{y}{c}\exp(-y^2/2)\dy\\
+& = \frac{2}{c}g(\sqrt{d-1})\exp(-c^2/2).
+\end{align}
+In the first line, we use the upper bound on $g$. In the second line, we use the fact that the upper bound is symmetric about $r_d$, so integrating over the right half interval is at least as large as the left interval (which is truncated at zero). 
+In the fourth line we use the fact that $y\c > 1$ in the interval of integration. (We do this with a change of variables in mind.) In the last line, we apply change of variables. TODO: Actually check the application of COV in the last step. This will be our estimate on $M_{\bar I}$. 
 
-\begin{itemize}
-  \item introduce idea of high dimensional Gaussian characterization. Basically, there is a lot more volume on the surface of a sphere in high dimensions. But Gaussian tail is exponential. At some point, drop off in probability with overwhelm increase in volume due to space. So, where is mass most concentrated?
-  \item Review change of variables formula (May need to add some notes just on this. Introduce it. Give some intuition for what it means. Give some examples in probability. (Just illustrate it on a few different distributions.) Give example with law of the unconscious statistician. Give example deriving polar change of coordinates. Give example with reparameterization trick?) 
-  \item Use change of variables to derive distribution of radius r of a high dimensional gaussian (start from chi squared)
-  \item Use this form to derive estimate on where most of the mass lies radially
-  \item Show analytically where the pdf of a high dimensional normal lies. 
-  \item Show in simulation where it lies. 
-  \item Review takeaways: Basically, this helps to build better intuition about how high dimensional random variables/probability works. Also, incidentally, useful in information theory. Also, cite paper about using high dimensional gaussians to characterize loss surface of neural networks. 
-\end{itemize}
+Now, let's come up with a lower bound on the total mass. We'll do this by considering only the mass of $g(r)$ in the subinterval $[r_d-c, r_d]$. For $r$ in this subinterval, we have $f''(r) \leq -2$. This is confirmed by noting that $f''$, as explicitly computed above, is monotonically increasing for $r>0$, and then evaluating $f''$ at the left endpoint of the interval. Applying \eqref{eq:gauss-sphere-f-taylor}, we have 
+$$
+f(r) \geq f(\sqrt{d-1}) - (r-\sqrt{d-1})^2 \geq f(\sqrt{d-1}) - \frac{c^2}{4}
+$$
+for $r$ in the designated subinterval. 
+Equivalently, this gives
+$$
+g(r) \geq g(\sqrt{d-1})\exp(- \frac{c^2}{4}). 
+$$
+Applying this (and noting that the bound has no dependence on $r$), we see that the total mass is at least
+$$
+\int_{r_d - c}^{r_d} g(r)\dr  \geq cg(\sqrt{d-1})\exp(- \frac{c^2}{4}).
+$$
+Finally, we see that
+ $$
+\mbox{QOI} = \frac{M_{\bar I}}{TM} \leq \frac{\frac{2}{c}g(\sqrt{d-1})\exp(-\frac{c^2}{2})}{cg(\sqrt{d-1})\exp(- \frac{c^2}{4})} = \frac{2}{c^2}\exp(- \frac{c^2}{4}).
+ $$
+ This proves the following lemma (wording directly copied from Blume/Kannan/Hopcroft book). 
+ \begin{lemma}
+ For a $d$-dimensional spherical Gaussian of variance 1, all but $\frac{2}{c^2}\exp(- \frac{c^2}{4})$ fraction of its mass is within the annulus $\sqrt{d-1} - c \leq r \leq \sqrt{d-1} + c$. 
+ \end{lemma}
+ Some concrete implications: Independent of $d$, $.99$ fraction of the mass is contained in the annulus with $c = 3.38$. and $.999$ fraction of the mass is contained in the annulus with $c=4.32$. 
+ 
+ \vspace{1em}
+\noindent \textbf{Can we do better?} This estimate holds for $d$ arbitrarily large. One may wonder if this is a conservative estimate. Perhaps the mass actually concentrates onto an arbitrarily narrow annulus as $d\to \infty$? My experimentation suggests that this is not the case. I think that the width of the high mass region is genuinely ``constant'' independent of $d$. 
+ 
+ Example: To generate samples from a traditional VAE, one draws samples from a unit gaussian and then passes these through a neural network. For moderately high dimensional latent space, this means that the samples are roughly drawn from the surface of a unit sphere. A question one might ask is: How does this affect interpolation? One of the most useful properties of a VAE is the ability to interpolate in latent space. But, if you draw two samples from a high dimensional gaussian and consider the euclidean ``straight line'' interpolation between them, are you passing through regions where there is very little mass, and so you probably have few samples? Or do your interpolations tend to stay close to the surface of the sphere as well? Is there a better way/different geometry to interpolate rather than straight lines?
+ 
+ Example: TODO: Give an information theory example, like from the Shannon paper about communication in the presence of noise?
+
+TODO: Show some simulation examples. 
+
+
+%Outline:
+%- Question: If you sample from a high dimensional gaussian, can you say roughly where it will lie radially?
+%- Idea: the density has the most mass near the origin. But there's almost no volume here. The probability of drawing a sample from a set $A$ is $\int_A f_X(x)\dx$. There's almost no volume here. So the probability of drawing a sample will be small. Eventually, when you get far out, there's tons of volume, but the density drops off. So, again, unlikely to get samples out there. Is there a happy medium where most of the mass lies? (Think of it like, high density in the middle, but no volume, so low overall mass. The probability of sampling from a given region is given by the mass of the region. It's a weird but cool way to think about things.) 
+%- Derive density in terms of r
+%- Show that most of the mass lies near the surface of a sphere. (TODO: There is one step in this proof that I'm not following. Go back and look this up.) 
+%- Show a plot of the density we derived. Show that it clearly concentrates near where we said it would. 
+%- Draw some samples from a high dimensional gaussian.  
+%- Comments:
+%  - we think that samples would lie near the mode. But they don't. Also, a gaussian is log concave. So we sort of think that samples should roughly lie in a convex set. But they really don't. Which is important, I imagine, because if you think a set is convex but it's not, you can get yourself into some real trouble, especially if you're in optimization land. 
+%  - Example: Information theory and perturbations of high dimensional signals. 
+
+%\begin{itemize}
+%  \item introduce idea of high dimensional Gaussian characterization. Basically, there is a lot more volume on the surface of a sphere in high dimensions. But Gaussian tail is exponential. At some point, drop off in probability with overwhelm increase in volume due to space. So, where is mass most concentrated?
+%  \item Review change of variables formula (May need to add some notes just on this. Introduce it. Give some intuition for what it means. Give some examples in probability. (Just illustrate it on a few different distributions.) Give example with law of the unconscious statistician. Give example deriving polar change of coordinates. Give example with reparameterization trick?) 
+%  \item Use change of variables to derive distribution of radius r of a high dimensional gaussian (start from chi squared)
+%  \item Use this form to derive estimate on where most of the mass lies radially
+%  \item Show analytically where the pdf of a high dimensional normal lies. 
+%  \item Show in simulation where it lies. 
+%  \item Review takeaways: Basically, this helps to build better intuition about how high dimensional random variables/probability works. Also, incidentally, useful in information theory. Also, cite paper about using high dimensional gaussians to characterize loss surface of neural networks. 
+%\end{itemize}
 
 
 %- The mass of a high dimensional  ($d$-dim) gaussian is concentrated on the surface of a sphere of radius $\sqrt{d-1}$. 

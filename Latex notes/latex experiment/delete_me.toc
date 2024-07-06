@@ -27,9 +27,10 @@
 \contentsline {subsection}{\numberline {6.4.1}Volume of $d$-ball}{29}{subsection.6.4.1}%
 \contentsline {subsection}{\numberline {6.4.2}Balls and Cubes}{30}{subsection.6.4.2}%
 \contentsline {subsection}{\numberline {6.4.3}Most of the mass is near the equator}{30}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}Most of the volume is near the surface}{30}{subsection.6.4.4}%
-\contentsline {subsection}{\numberline {6.4.5}Distances between randomly sampled points}{30}{subsection.6.4.5}%
-\contentsline {subsection}{\numberline {6.4.6}Digression: Lp balls}{31}{subsection.6.4.6}%
-\contentsline {subsection}{\numberline {6.4.7}Discussion}{31}{subsection.6.4.7}%
-\contentsline {section}{\numberline {6.5}High Dimensional Gaussian }{31}{section.6.5}%
+\contentsline {subsection}{\numberline {6.4.4}Most of the volume is near the surface}{31}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}High dimensional cubes}{31}{subsection.6.4.5}%
+\contentsline {subsection}{\numberline {6.4.6}Distances between randomly sampled points}{31}{subsection.6.4.6}%
+\contentsline {subsection}{\numberline {6.4.7}Digression: Lp balls}{32}{subsection.6.4.7}%
+\contentsline {subsection}{\numberline {6.4.8}Discussion}{32}{subsection.6.4.8}%
+\contentsline {section}{\numberline {6.5}High Dimensional Gaussian }{32}{section.6.5}%
 \contentsline {subsection}{\numberline {6.5.1}Radial density of Gaussian}{32}{subsection.6.5.1}%
