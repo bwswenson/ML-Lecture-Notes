@@ -1,0 +1,180 @@
+\chapter{Least Squares and Linear Regression}
+\section{Least Squares: Linear Algebra Perspective} 
+Let
+$$
+\x_i \in \R^m,\quad y_i \in \R, \quad\quad i=1,\ldots, m.
+$$
+
+\vspace{1em}
+Here, we have $m$ examples where $x_i$ is a feature vector and $y_i$ is a label. 
+Let
+$$
+X = 
+\begin{pmatrix}
+    -x_1-\\
+    \vdots\\
+    -x_m-
+\end{pmatrix}\in \R^{m\times n}
+\quad \quad \quad
+\y = 
+\begin{pmatrix}
+    y_1\\
+    \vdots\\
+    y_m
+\end{pmatrix} \in \R^{n}
+$$
+
+The matrix $X$ is commonly known as the design matrix. We wish to solve 
+\begin{equation} \label{eq:least-squares}
+X\hat \w = \y. 
+\end{equation}
+
+In typical least squares applications, we have $m > n$. This means we have an overdetermined system---there are more equations than variables. We'll deal with that case first, then we'll consider connections to the pseudo inverse. Then we'll consider the complementary case where $m<n$ to complete the picture. 
+
+
+\subsection{Standard Least Squares: $m>n$} \label{sec:least-squares1}
+Note that $X$ is tall and $\dim \col X \leq n < m$. The nullspace $N(X)$ may or may not be empty.  if we assume $\myrank X = n$, then 
+  \begin{itemize}
+    \item $X$ has linearly independent columns
+    \item $\dim \col X = n$
+    \item $N(X) = \{0\}$ (by rank-nullity theorem)
+  \end{itemize}
+We'll assume $\myrank X = n$. Suppose for now that $\hat y\in \col X$. There exists a unique $\hat w$ solving $X\hat w = \hat y$ (see Exercise \ref{exer:restricted-bijection}). 
+Now, suppose $y$ may not lie in $\col X$. We would like to find $\hat w$ such that 
+\begin{equation} \label{eq:LSQ-opt-prob}
+\hat w \in \arg\min_{w} \|Xw - y\|_2^2.
+\end{equation}
+(Hence the name ``least squares solution.'')
+We're in a Hilbert space, so this is just the projection of $y$ onto $\col X$. In particular, the projection theorem (recall it?) gives us existence and uniqueness of a solution. Hence, the optimal $\hat w$ satisfies $(X\hat w- y) \perp \col X$. Equivalently, $(X\hat w - y)^\T X = 0 \iff \hat{w}^\T X^\T X = \y^\T X \iff X^\T X \hat w = X^\T \y$. We know that $(X^\T X)^{-1}$ exists, hence our least squares solution is
+\begin{equation} \label{eq:LS-soln1}
+\hat w = (X^\T X)X^\T\y.
+\end{equation} 
+Critically, this is the least squares solution of \eqref{eq:least-squares} when $X$ is tall and full rank. We will treat the case when $X$ is fat in the next section. In Section  \ref{sec:LSQ-pseudo-inv} we will see that both of these cases can be seamlessly handled by applying the pseudo-inverse. 
+
+
+
+%\myred{Comment}: This is a nice exposition and all. But it feels kind of long and meandering. The pseudo inverse cuts right to the chase. Should I really just present it that way, and then have this as some kind of supporting material in case one wants to look at from a different perspective and get a little more insight. I'm more interested in remembering that the solution is the pseudo inverse, remembering the form of the pseudo inverse when $X$ is full column rank, and knowing efficient/effective ways to compute it in practice. Though, actually, since I often expect we'll be in the full column rank setting, this is kind of nice to see. And it's not that long, really. 
+
+\subsection{Other case: $m<n$}
+
+In Section \ref{sec:least-squares1} we could not solve \eqref{eq:least-squares} because $X$ was tall and the system was overdetermined. No solution existed.\footnote{If $\myrank X\in \R^{m\times n}$ were less than $n$, then $N(X)$ would be nonempty and a solution would exist.} In this section, we treat the case where $X$ is fat. The system is underdetermined. We have few equations and many unknowns. And $N(X)$ is necessarily nonempty. 
+
+Editorial comment: I get why you care about the $X$ tall case. But why do we care about solving the $X$ fat case in practice? 
+
+To make life easier, assume for now that $\myrank X = m$. Then $\dim \col X = m$. Viewed as a linear transformation, $X$ is surjective and $y\in \col X$. Since $N(X) \not= \{0\}$, there exists many solutions to \eqref{eq:least-squares}. How can we narrow down the set of solutions and pick one? Some options:
+\begin{itemize}
+    \item Pick $\hat w$ so $\|\hat w\|_2$ is small
+    \item Pick sparsest $w$---i.e., so $\|w\|_0$ is small
+\end{itemize}
+The first idea jives with the notion of regularization and picking a "low complexity" solution. The second is related to compressed sensing and LASSO. 
+
+For now, we'll go with option 1. Suppose $\hat w$ and $w$ both solve \eqref{eq:least-squares}. Then $\hat w - w \in N(X)$. If $\hat w$ lies in the rowspace of $X$ then $\hat w \perp (\hat w - w)$, since $\row X \perp N(x)$. Suppose $\hat w \not = w$. Then
+\begin{align}
+  \|\hat w\|^2 & = \langle w + (\hat w - w), w + (\hat w - w)  \rangle\\
+  & \|w\|^2 - \|\hat w - w\|^2 > \|w\|^2.
+\end{align}
+Hence, if there exists a solution in the rowspace, it has minimum norm and is unique. 
+
+Recall that the transformation $X$ may be viewed as a bijection between $\col X$ and $\row X$ (e.g., see Exercise \ref{exer:restricted-bijection}). Since $y \in \col X$, and the solution we're looking for is $\hat w \in \row X$, we may recover $\hat w$ if we can compute the inverse of our bijective map restricted to these sets. This is precisely what the pseudo inverse does, as discussed in Section \ref{sec:LSQ-pseudo-inv}. 
+
+For now, we take a slightly more hands on approach to demonstrate an alternative and maybe more illustrative way to arrive at the solution when $X$ is full rank. Note that $\myrank X = \myrank X^\T X = \myrank X X^\T = \myrank X X^\T$ (see Exercise \ref{exer:rank-eqs}). 
+Since we assumed $\myrank X = m$ ($X$ fat), we get $\myrank X X^\T = m \iff (X X^\T)^{-1}$ exists. We want to solve \eqref{eq:least-squares}. Anything we can set $\hat w$ to to make this work? 
+Let 
+\begin{equation}\label{eq:LS-soln2}
+\hat \w = X^\T (X X^\T)^{-1}\y.
+\end{equation}
+Then $X\hat w = XX^\T (X X^\T)^{-1} y = y$. 
+Note that if we let $z = (XX^\T)^{-1}\y$, then $\hat \w = X^\T z$, hence $\hat \w \in \row X$. 
+Hence, $\hat \w$ is our unique rowspace solution to \eqref{eq:least-squares}. 
+
+In Section \ref{sec:LSQ-pseudo-inv} we'll use the pseudo inverse to generalize this to handle the rank-deficient case and tie it together with the tall $X$ case of Section \eqref{sec:least-squares1}.
+
+
+\subsection{Least Squares and the Pseudo Inverse} \label{sec:LSQ-pseudo-inv}
+A linear mapping $A$ is a bijection from $\row A$ to $\col A$ (see Exercise \ref{exer:restricted-bijection}). The pseudo inverse, studied in Section \ref{sec:pseudo-inv}, gives the inverse map from $\col A$ to $\row A$. It maps $\col A^{\perp} = N(A^\T)$ to zero. This is the exact operation we required when deriving the solutions to \eqref{eq:least-squares} when $X$ was tall and fat in \eqref{eq:LS-soln1} and \eqref{eq:LS-soln2} respectively. The pseudo-inverse generalizes these in the sense that 
+$$
+\hat \w = X^+\y
+$$
+is identical to \eqref{eq:LS-soln1} and \eqref{eq:LS-soln2}  in the cases previously studied. Moreover, the pseudo inverse applies more generally and gives the solution to \eqref{eq:least-squares} when is $X$ is tall or fat and when $X$ is rank deficient. 
+
+\section{Gauss-Markov Theorem: Least Squares and MLE} \label{sec:Gauss-Markov}
+\myred{TODO} Connect that MLE is optimal estimator in some sense in presence of gaussian noise
+
+\section{Ridge Regression}
+\myred{TODO} Set up ridge regression. Explain it in terms of regularization. (Maybe see Tibshirani notes about why shrinking coefficients is helpful.) Also, connect to improving the condition number/stability of the pseudo inverse. Add a numerical example. Also,...\\
+
+Ridge regression uses the following estimator instead of the pseudo inverse \myred{TODO} Add eqref to psudo inverse section. 
+\begin{equation} \label{eq:ridge-regression}
+\hat w = (X^\T X + \lambda I)^{-1}X^\T\y.
+\end{equation}
+This can be helpful for improving numerical stability when $X$ has many rows that are almost colinear (so $X^\T X$ is ill conditioned). That was supposedly the original motivation. It can also be helpful for regularization in terms of restricting the hypothesis class. I need to do some work to understand better why this is. But it seems to be generally helpful up to a point. Also, it can be interpreted as a formulation of optimizing \eqref{eq:LSQ-opt-prob} with $\w$ restricted to a ball of a given radius. (You interpret this as optimizing the Lagrangian of that problem, or something like that.) 
+
+\section{LASSO and Elastic Nets}
+\myred{TODO}: Add sections about these? To paint a more complete picture? Maybe just keep them really short for now so I remember they're relevant and what people claim about them?
+
+
+
+\section{Bayesian Linear Regression}
+Let $\w\in \R^n$ and consider the standard linear regression model with Gaussian noise
+$$
+f(\x) = \x^\T \w, \quad\quad y = f(\x) + \eps
+$$
+where $\eps \sim \calN(0, \sigma_n^2)$. Here $\x \in \R^n$ denotes a vector of covariates, $y$ denotes a scalar output, and $\calD = \{(\x_i, y_i),i=1,\ldots,m \}$ denotes our data set of $m$ observations. All outputs are assumed to be independent, and we make no assumptions about the distribution of inputs. Let the column vectors $\x_i$ for all inputs be aggregated in the $n \times m$ matrix $X$.\footnote{In stats literature the matrix $X^\T$ is typically referred to as the design matrix. Rasmussen uses the transpose of this.} In the non-Bayesian settings discussed previously, our goal was to come up with a point estimate of $\w$. In the Bayesian setting, we will assume a prior 
+$$
+\w\sim \mathcal{N}(0, \Sigma_p).
+$$
+
+\noindent
+\textbf{Goals}: Having a prior, we may compute a couple of important things that are impossible in the previous settings. We are going to try and compute the posterior distribution on $\w$
+\begin{equation} \label{eq:BLR-goal}
+p(\w|X, \y) \hspace{2em}
+\end{equation}
+and the posterior predictive distribution 
+$$
+p(f_*|\x_*, X, \y)
+$$
+The first term is the distribution of $\w$ conditioned on our observed data $\calD$. This, of course, accounts for the prior as well. The second requires some clarification of the notation. For a given input of covariates $\x_*$, let $f_*$ denote the random variable $f_* = f(\x_*) + \eps$. Then, the second item in \eqref{eq:BLR-goal} may be thought of as the distribution of the output $y$ if we were to try a new test point $\x_*$ outside of our data set. (Note the relation to Gaussian processes.) Handy. 
+
+\myred{TODO}: Add an example motivating why you would be interested in this. 
+
+We will apply Bayes rule to derive both of these. The first is relatively easy to derive. The second takes more work. We begin with the first.\footnote{This is basically copied from Rasmussen, p.9-10} Our goal is to express this quantity in terms of things that we know. We can compute the likelihood $p(\y|X, \w)$ (see below) and we know the prior $p(w)$. We will attempt to express it in these terms with an arbitrary normalizing constant. Because the result will be a Gaussian, we won't need to be able to compute the normalizing constant explicitly. 
+To that end, note that
+\begin{align}
+p(\y|X, \w) & = \prod_{i=1}^m p(y_i|\x_i, \w)\\ \label{eq:BLR-pyxw}
+& = \prod_{i=1}^m \frac{1}{\sqrt{2\pi}\sigma_n} \exp\left( -\frac{(y_i - \x_i^\T \w)}{2\sigma_n^2} \right)\\
+& = \frac{1}{(2\pi\sigma_n^2)^{n/2}}\exp\left( -\frac{1}{2\sigma_n^2}\|\y - X^T\w\|^2 \right)\\
+& = \calN(X^\T\w, \sigma_n^2 I).
+\end{align}
+In the third line, we bring the product into the $\exp$ as a sum and note the equivalence to the squared Euclidean norm. Applying Bayes' rule we see that
+\begin{equation}\label{eq:BLR-eq2}
+p(\w|\y, X) = \frac{p(\y|X, \w)p(\w)}{p(\y| X)}.
+\end{equation}
+Maybe there is an easier way to see this, but it confused me at first. The first steps are to use Bayes' rule to see that
+\begin{align}
+p(\w|\y, X) & = \frac{p(\w)p(\y, X|\w)}{p(\y, X)}\\
+& = \frac{\cancel{p(\w)}p(\y| X, \w)p(X, \w)}{p(\y, X)\cancel{p(\w)}}
+\end{align}
+where in the second line we use $p(\y, X|\w) = \frac{p(X, \y, \w)}{p(\w)} = \frac{p(\y| X, \w)p(X, \w)}{p(\w)}$. Follow your nose from there. 
+
+In \eqref{eq:BLR-eq2} we have expressed the desired quantity in terms of known quantities and a normalizing constant. Writing only the terms from the likelihood and prior and ``completing the square'' we obtain
+\begin{align}
+p(\w|X, \y) & \propto \exp\left( -\frac{1}{2\sigma n^2}(\y - X^\T\w)^\T(\y - X^\T\w) \right) \exp\left( -\frac{1}{2}\w^\T \Sigma_p^{-1} \w \right)\\
+& \propto \exp\left( -\frac{1}{2}(\w - \bar \w)^\T \left( \frac{1}{\sigma_n^2}XX^T + \Sigma_p^{-1} \right) (\w - \bar \w) \right),
+\end{align}
+where 
+\begin{equation} \label{eq:BLR-mean}
+\bar \w = \sigma_n^{-2}\left(\sigma_n^{-2} X X^\T + \Sigma_p^{-1} \right)^{-1} X\y. 
+\end{equation}
+This is a Gaussian with mean $\bar \w$ and covariance $A^{-1}$, where $A = \sigma_n^{-2}X X^\T + \Sigma_p^{-1}$. Note that the mean and mode coincide so that \eqref{eq:BLR-mean} is the MAP estimate of $\w$. The MAP estimate coincides with ridge regression \eqref{eq:ridge-regression}, which, in the non-Bayesian setting is known as the penalized MLE. The name comes from the fact that the least squares estimator is an MLE in common noise settings (e.g., iid Gaussian---see Section \ref{sec:Gauss-Markov}) and ridge regression \eqref{eq:ridge-regression} is the least squares estimator \eqref{eq:LS-soln1} with a penalty term.\footnote{In that section, we defined $X$ by filling rows with $\x_i$'s. Hence, it's the transpose of what we've used here.} 
+
+The predictive distribution is obtained by averaging over all parameter values, weighted by their posterior distribution. 
+\begin{align}
+p(f_*|\x_*, X, \y) & = \int p(f_*|x_*, \w) p(\w|X, \y)\dw \\
+& = \calN\left(\frac{1}{\sigma_n^2} \x_*^\T A^{-1}X\y, \x_*A^{-1} \x_*\right)
+\end{align}
+Annoyingly, this isn't derived in Rasmussen. But the derivation follows directly from Bishop Section 2.2.3, and in particular (2.115) and (2.116). (TODO: Add as exercise? Go over this. What's the gist of how it's done?)
+
+\myred{TODO}: Add reference to notebook exploring this. Maybe drop in a figure and some kind of link to the notebook. Where to store the notebooks so that I can easily link to them? 
+
+\section{LASSO}
+\myred{TODO} This is a digression and I'm leaning away from doing it for now. Basically, in spite of all the data science tools out there, I feel like regression is what people use and rely on. Hence why this chapter is so valuable. And LASSO tells a valuable part of that story. Maybe put in a short section based on some Tibshirani notes? Mostly, just so I have a starting point/context if/when I do run into this. Then plan to expand it then? If I do it, I could make that note at the beginning of the section. 
