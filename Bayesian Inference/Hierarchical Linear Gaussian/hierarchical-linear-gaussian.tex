@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+
+% Define commands
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\cov}{\operatorname{Cov}}
+
+% theorem-like objects
+\newtheorem{lemma}{Lemma}
+
+
+
+\title{Bayesian Inference in a Simple Hierarchical Linear Gaussian Model}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% Consider the following inference problem. We are interested in estimating some $\theta\in \R^d$. Assume that $\theta\sim N(\mu, \Sigma)$, where $\mu = C\lambda$, $\lambda \in \R^p$ and $C\in \R^{d\times p}$. We measure some subset $S\subset \{1,\ldots, d\}$ of elements of $\theta$. We wish to estimate the remaining elements of $\theta$. We denote the observed set as $\theta_{S}$ and the unobserved set as $\theta_{-S}$. Concretely, the goal is to estimate $\theta_{-S}$ given observations of $\theta_{S}$. 
+
+% We assume that $\lambda$ has prior $N(\lambda_0, \Sigma_\lambda)$. 
+
+
+\section*{Model Formulation}
+
+Let $\boldsymbol{\theta} \in \mathbb{R}^n$ be a random vector governed by a two-level hierarchical Gaussian model:
+\begin{align}
+    \boldsymbol{\theta} \mid \boldsymbol{\lambda} &\sim \mathcal{N}(\boldsymbol{\lambda}, \boldsymbol{\Sigma}), \\
+    \boldsymbol{\lambda} &\sim \mathcal{N}(\boldsymbol{\lambda}_0, \boldsymbol{\Sigma}_\lambda),
+\end{align}
+where $\boldsymbol{\lambda}_0 \in \mathbb{R}^n$, and $\boldsymbol{\Sigma}, \boldsymbol{\Sigma}_\lambda \in \mathbb{R}^{n \times n}$ are symmetric positive-definite covariance matrices.
+
+Consider a partition of the vector $\boldsymbol{\theta}$ into observed and unobserved components:
+\begin{equation}
+    \boldsymbol{\theta} = \begin{pmatrix} \boldsymbol{\theta}_1 \\ \boldsymbol{\theta}_2 \end{pmatrix},
+\end{equation}
+where $\boldsymbol{\theta}_1 \in \mathbb{R}^{n_1}$ is measured, $\boldsymbol{\theta}_2 \in \mathbb{R}^{n_2}$ is unobserved, and $n_1 + n_2 = n$. 
+
+The mean vector and covariance matrices are partitioned block-wise according to this split:
+\begin{equation}
+    \boldsymbol{\lambda}_0 = \begin{pmatrix} \boldsymbol{\lambda}_{0,1} \\ \boldsymbol{\lambda}_{0,2} \end{pmatrix}, \quad
+    \boldsymbol{\Sigma} = \begin{bmatrix} \boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\ \boldsymbol{\Sigma}_{21} & \boldsymbol{\Sigma}_{22} \end{bmatrix}, \quad
+    \boldsymbol{\Sigma}_\lambda = \begin{bmatrix} \boldsymbol{\Sigma}_{\lambda,11} & \boldsymbol{\Sigma}_{\lambda,12} \\ \boldsymbol{\Sigma}_{\lambda,21} & \boldsymbol{\Sigma}_{\lambda,22} \end{bmatrix}.
+\end{equation}
+
+The goal is to derive the conditional posterior distribution $p(\boldsymbol{\theta}_2 \mid \boldsymbol{\theta}_1)$.
+
+
+\section*{Supporting Lemmas}
+
+\begin{lemma}[Sum of Independent Normal Random Vectors]
+\label{lem:gaussian_sum}
+Let $\mathbf{x} \sim \mathcal{N}(\boldsymbol{\mu}_x, \boldsymbol{\Sigma}_x)$ and $\mathbf{y} \sim \mathcal{N}(\boldsymbol{\mu}_y, \boldsymbol{\Sigma}_y)$ be independent Gaussian random vectors in $\mathbb{R}^n$. Then their sum $\mathbf{z} = \mathbf{x} + \mathbf{y}$ is Gaussian distributed:
+\begin{equation}
+    \mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu}_x + \boldsymbol{\mu}_y, \, \boldsymbol{\Sigma}_x + \boldsymbol{\Sigma}_y).
+\end{equation}
+\end{lemma}
+TODO: ADD REFERENCE. Places to look: Bishop, \emph{Pattern Recognition and Machine Learning} (PRML), Sec.~2.3.3 ``Bayes' theorem for Gaussian variables'' --- the marginal $p(\mathbf{y})$ in eq.~(2.115), taken with $\mathbf{A} = \mathbf{I}$, $\mathbf{b} = \mathbf{0}$, gives the marginal of $\boldsymbol{\theta}$ directly. Also Bishop PRML Exercise 2.32. Murphy, \emph{Probabilistic Machine Learning: An Introduction} (2022), Sec.~3.3 ``Linear Gaussian systems.'' Any probability text that proves it via characteristic functions or moment generating functions. (Equation and section numbers are from memory; double-check them.)
+
+\begin{lemma}[Conditioning of Partitioned Multivariate Normal Vectors]
+\label{lem:mvn_conditioning}
+Let $\mathbf{x} \in \mathbb{R}^n$ be a joint Gaussian random vector partitioned as $\mathbf{x} = \begin{pmatrix} \mathbf{x}_1 \\ \mathbf{x}_2 \end{pmatrix}$ with $\mathbf{x}_1 \in \mathbb{R}^{n_1}$ and $\mathbf{x}_2 \in \mathbb{R}^{n_2}$, distributed according to:
+\begin{equation}
+    \begin{pmatrix} \mathbf{x}_1 \\ \mathbf{x}_2 \end{pmatrix} \sim \mathcal{N}\left( \begin{pmatrix} \boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix}, \, \begin{bmatrix} \boldsymbol{\Omega}_{11} & \boldsymbol{\Omega}_{12} \\ \boldsymbol{\Omega}_{21} & \boldsymbol{\Omega}_{22} \end{bmatrix} \right),
+\end{equation}
+where $\boldsymbol{\Omega}_{11}$ is invertible. The conditional distribution of $\mathbf{x}_2$ given $\mathbf{x}_1$ is Gaussian:
+\begin{equation}
+    \mathbf{x}_2 \mid \mathbf{x}_1 \sim \mathcal{N}(\boldsymbol{\mu}_{2 \mid 1}, \, \boldsymbol{\Omega}_{2 \mid 1}),
+\end{equation}
+where:
+\begin{align}
+    \boldsymbol{\mu}_{2 \mid 1} &= \boldsymbol{\mu}_2 + \boldsymbol{\Omega}_{21} \boldsymbol{\Omega}_{11}^{-1} (\mathbf{x}_1 - \boldsymbol{\mu}_1), \\
+    \boldsymbol{\Omega}_{2 \mid 1} &= \boldsymbol{\Omega}_{22} - \boldsymbol{\Omega}_{21} \boldsymbol{\Omega}_{11}^{-1} \boldsymbol{\Omega}_{12}.
+\end{align}
+\end{lemma}
+This result can be found in [TODO: ADD REFERENCE TO BISHOP]. Places to look: Bishop PRML Sec.~2.3.1 ``Conditional Gaussian distributions,'' eqs.~(2.81)--(2.82). Bishop conditions $\mathbf{x}_a$ on $\mathbf{x}_b$, so his $a,b$ correspond to our $2,1$. Also Murphy, \emph{Probabilistic Machine Learning: An Introduction} (2022), Sec.~3.2.3; and Rasmussen \& Williams, \emph{Gaussian Processes for Machine Learning}, Appendix A.2, eq.~(A.6). (Equation and section numbers are from memory; double-check them.)
+
+\section*{Main Result}
+Note that $\theta = \lambda + \epsilon$ where $\epsilon \sim N(0, \Sigma)$. By Lemma \ref{lem:gaussian_sum}, we see that $\theta$ is Gaussian with mean $\E[\theta] = \lambda_0$ and covariance $\cov(\theta) = \Sigma + \Sigma_\lambda$. We can now apply Lemma \ref{lem:mvn_conditioning} to compute $p(\theta_2|\theta_1)$. To do so, note that we will use $\Omega = \Sigma + \Sigma_\lambda$, and we will simply take the sum of the relevant sub-blocks of these matrices to get $\Omega_{ij} = \Sigma_{ij} + \Sigma_{\lambda, ij}$. 
+Making this substitution, we get the posterior distribution
+\begin{equation}
+    \boldsymbol{\theta}_2 \mid \boldsymbol{\theta}_1 \sim \mathcal{N}\left( \boldsymbol{\mu}_{2 \mid 1}, \, \boldsymbol{\Sigma}_{2 \mid 1} \right)
+\end{equation}
+where:
+\begin{align}
+    \boldsymbol{\mu}_{2 \mid 1} &= \boldsymbol{\lambda}_{0,2} + (\boldsymbol{\Sigma}_{21} + \boldsymbol{\Sigma}_{\lambda,21}) (\boldsymbol{\Sigma}_{11} + \boldsymbol{\Sigma}_{\lambda,11})^{-1} (\boldsymbol{\theta}_1 - \boldsymbol{\lambda}_{0,1}), \\
+    \boldsymbol{\Sigma}_{2 \mid 1} &= (\boldsymbol{\Sigma}_{22} + \boldsymbol{\Sigma}_{\lambda,22}) - (\boldsymbol{\Sigma}_{21} + \boldsymbol{\Sigma}_{\lambda,21}) (\boldsymbol{\Sigma}_{11} + \boldsymbol{\Sigma}_{\lambda,11})^{-1} (\boldsymbol{\Sigma}_{12} + \boldsymbol{\Sigma}_{\lambda,12}).
+\end{align}
+
+\section*{Small Extension}
+Suppose that $\lambda = C\nu$ where $\nu \sim \mathcal{N}(\nu_0, \Sigma_{\nu})$. The $\lambda$ is still normally distributed. And by standard properties of expectation and covariance we have $\E[\lambda] = C\nu_0$ and $\cov(\lambda) = C\Sigma_{\nu} C^\top$. Simply precompute the mean and variance of $\lambda$ and use these for $\lambda_0$ and $\Sigma_\lambda$ in the previous result.  
+
+Note: Assume $\Sigma_{\nu}$ is positive definite. You can probably work this all out about the same if things are positive semi definite. 
+
+\end{document}
