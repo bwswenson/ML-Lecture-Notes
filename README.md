@@ -1,6 +1,6 @@
 This repository contains lecture notes and code demos for core ML topics. 
 
-Topics with written notes (PDF or LaTeX), most with accompanying code:
+Topics with written notes (hand written or LaTeX), most with accompanying code:
 - Linear algebra (SVD, pseudoinverse, low-rank approximation): `Latex notes/Some personal notes`
 - Calculus and analysis (the Laplacian, Lagrange multipliers, change of variables, polar coordinates): `Latex notes/Some personal notes`
 - Least squares and linear regression (pseudoinverse solution, Bayesian linear regression): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`
@@ -21,7 +21,9 @@ Topics with code only:
 - MCMC: `MCMC lecture code`
 - Numerically stable softmax: `stable softmax`
 
-The folder "Other topics" contains notes or code written by others. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
+Some of these notes were prepared for lectures in a seminar ML seminar. The personal notes, found at [TODO], contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
+
+The folder "Other topics" contains notes or code written by others, kept here only as a useful reference. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
 
 Books used in writing these notes include
 - S. Shalev-Shwartz and S. Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press, 2014.
