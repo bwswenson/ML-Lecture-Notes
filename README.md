@@ -21,7 +21,7 @@ Topics with code only:
 - MCMC: `MCMC lecture code`
 - Numerically stable softmax: `stable softmax`
 
-Some of these notes were prepared for lectures in a seminar ML seminar. The personal notes, found at [TODO], contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
+Some of these notes were prepared for lectures in a seminar ML seminar. The personal notes, found at [`Latex notes/Some personal notes`](Latex%20notes/Some%20personal%20notes), contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
 
 The folder "Other topics" contains notes or code written by others, kept here only as a useful reference. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
 
