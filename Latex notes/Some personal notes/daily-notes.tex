@@ -99,11 +99,12 @@ f_Y(y) = f_X(h(y)) |\det Dh(y))|.
 Any time you need an analytic expression for a function of a random variable, the change of variables formula is indispensable. 
 
 For a concrete example of this, suppose that $X$ is uniformly distributed on $[0,1]$ and $Y = X^2$. What is the density of $Y$? It's $f_Y(y) = \frac{1}{2}\frac{1}{\sqrt{y}}$. This is shown in Figure \ref{fig:cov-example1}. Also, see demo in Jupyter notebook.
-\begin{figure}[h] \label{fig:cov-example1}
+\begin{figure}[h]
 \centering
 \centering
 \includegraphics[scale = .5]{change_of_variables/cov-example1.png}
 \caption{Density of $Y = X^2$, $X\sim U([0,1])$}
+\label{fig:cov-example1}
 \end{figure}
 
 \vspace{1em} \noindent 
@@ -282,11 +283,12 @@ The previous examples have demonstrated the clear utility of being able to chang
 %\int_{[0,1]} \frac{1}{2} x^2 = 1. 
 %$$
 %Now, suppose it is easier for some reason to evaluate the integral by substituting in $y = cx$. We wish to evaluate this same integral, but under the change of variables. 
-\begin{figure}[h] \label{fig:cov-compression}
+\begin{figure}[h]
 \centering
 \centering
 \includegraphics[scale = .21]{change_of_variables/CoV-compression.jpeg}
 \caption{Illustration of ''compression'' effect.}
+\label{fig:cov-compression}
 \end{figure}
 The first thing to notice is that if we're going to evaluate the same integral, we've got to make sure the underlying domains match up. This is illustrated in Figure \ref{fig:cov-compression}. The function $g(x) = cx$ has the effect of compressing the domain of integration. The end point for integration inside the function is reached when $x=1/c$.  We make sure the domains match up by taking the preimage of the desired domain under $g$. Equivalently, we may state this as they do in Theorem \ref{thrm:CoV} in terms of $g$ rather than the primage, via 
 $$
@@ -323,10 +325,11 @@ T =
 \end{pmatrix}. 
 $$
 The image of the cube $[0,1]^2$ is shown in Figure \ref{fig:parallelepiped-2d}. See also Jupyter notebook. 
-\begin{figure}[h] \label{fig:parallelepiped-2d}
+\begin{figure}[h]
 \centering
 \includegraphics[scale = .5]{change_of_variables/parallelepiped-2d.png}
 \caption{The image of the cube $[0,1]^2$ under $T$.}
+\label{fig:parallelepiped-2d}
 \end{figure}
 
 Note that the vertices are given by the image of the vertices of the hypercube. In particular, two of the vertices are precisely the columns of $T$. 
@@ -411,10 +414,11 @@ While the idea that most of the mass is near the equator, its implication in pra
 (1-\eps)^d.$
 This is shown in Figure \ref{fig:vol-near-surf}. 
 The higher the dimension, the more the volume is concentrated on the surface of the sphere. This basically follows from the fact that the higher $d$, the more $x^d$ looks flat below 1 and like a wall straight up at 1. 
-\begin{figure} \label{fig:vol-near-surf}
+\begin{figure}
 \centering
 \includegraphics[scale = .5]{high_dimensional_space/vol-near-surf.png}
 \caption{Volume near surface of sphere.}
+\label{fig:vol-near-surf}
 \end{figure}
 
 \subsection{High dimensional cubes}
@@ -620,3 +624,44 @@ Todos
 %  \item I think the low rank approximation perspective is really easy. The best low rank approximation is just the SVD. And the definition of the SVD is basically the eigendecomposition of $XX^T$. (Actually, this perspective makes it obvious why you can solve a different system, depending on whether $d$ or $N$ is larger. You just solve for the right or left singular vectors. 
 %  \item Then you have kernel PCA. What do I want to know about this? Start by reviewing what we're trying to do here. Send our data into high dimensional feature space. Then figure out the direction of maximal variance (need it exist?!) And then look at the corresponding latent codes as represented via the canonical basis in $R^n$? Hm. That's kind of weird. 
 %\end{itemize}
+
+
+\section{An Elementary Dip into Acoustics}
+
+Structural acoustics is defined as something like the study of mechanical waves in structures and how they interact with and radiate into the adjacent media. 
+My goal at the moment is to understand the computation of the frequency response function using finite element methods. 
+
+Starting point: Suppose that you have some structure. I'm going to assume it's in vacuo, because I'm guessing that will make life easier. Suppose that you have some mesh discretizing the structure. If this is a 3d structure, I'm assuming it will be a tetrahedral mesh. (Or some other type of 3d mesh.) Note that for introductory problems, we can start with 1d structures, like an Euler-Bernoulli beam (which, by the way, is an example I should probably go through). With such a beam, I'm guessing you can use a 1d mesh. Though, it's interesting to note that each node in the mesh will have 2 degrees of freedom. There is the compression/stretch direction, axially along the beam, and the transverse direction. I guess you could even consider 3 directions. But I wouldn't want to. Anyway, back to our starting point. You have a mesh. Would we like to model the problem as a simple mass-spring-damper system using basic Newtonian physics. (It's going to be a little trickier than that.) Assume that you are provided matrices M, C, K, representing mass, damping, and stiffness. The interpretation of these is not quite the same as a mass-spring-damper system. Each of these matrices has dimension $3n\times 3n$, if $n$ is the number of nodes. That is because we're going to model each degree of freedom separately. If we just had the mass matrix, the newtonian physics representation would be 
+$$F = M\ddot u.$$ 
+This describes the relationship between acceleration along different degrees of freedom and force along different degrees of freedom. In the standard scalar case, we know how this works. If we just have a bunch of "uncoupled" masses we know how this works. 
+
+I'm not explaining this well. Inertia is the tendency of a body to resist changes in its state of motion. Mass is a quantitative measure of inertia. Here, we're looking at directional mass. Or, a quantitative measure of the tendency of a body to resist changes in state of motion along a given degree of freedom. In a standard mass-spring system, each mass element would have 3 diagonal components that are exactly the mass. In a finite element model, for reasons beyond my understanding, we somehow compute a mass matrix where there is inertial coupling between different elements and potentially different directional components. 
+
+In addition to the mass matrix, there is a stiffness matrix and a damping matrix. These also have dimensions $3n\times 3n$ (the state has dimension $3n$), and can represent similar coupling to what was just described. From these, we get an equation of motion
+$$
+M\ddot u + C\dot u + Ku = F,
+$$
+where $u\in \R^{3n}$ represents the displacement of each element and $F$ is an external force. 
+We can analyze the frequency response of this system via the Fourier transform. Let's assume that the ODE has a solution (it's linear, so it should be easy to verify that it does. Is this tricky to verify?). We know that the Fourier transform of $u(t)$ satisfies $\mathcal{F}(\ddt u)(\omega) = j\omega \mathcal{F}{u}(\omega)$. Applying this above, we see that in the frequency domain, the ODE must satisfy
+$$
+-\omega^2 M + Cj\omega + Ku = \mathcal{F}{F}.
+$$
+The frequency response is...
+
+TODOs
+\begin{itemize}
+  \item At some point, briefly review the above expression re the derivative of the fourier transform of a function (I think you just have to justify differentiating inside the integral)
+  \item Review notion of acoustic impedence. Definition. Maybe relationship to other definitions of impedence.  
+  \item What is the relationship between poles of the FRF and eigenmodes of the system?
+  \item Discuss how one would compute the frequency response by solving matrix inversion problem
+  \item Maybe discuss subspace methods
+\end{itemize}
+
+\section{Log-sum-exp and Softmax}
+This is just a brief note on the relationship between the log-sum-exp function and the softmax. The gist is simple: log-sum-exp is a (convex) approximation to the max function and softmax is its derivative. If you include a temperature parameter in these, then in the limit they converge to max and (a variant of) argmax. 
+
+
+
+
+\section{}
+

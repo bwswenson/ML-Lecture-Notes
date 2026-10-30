@@ -111,10 +111,11 @@ It's worth noting that the other eigenvalues are stationary points of \eqref{max
 
 Consider a 2d example: $f(x) = x^T A x$ where $A = diag(1, 2)$. Clearly, this is a parabaloid. Constrained to the unit ball, this problem is nonconvex. It has a local maximum along one of the axes and a local minimum along another. This is illustrated (poorly) in Figure \ref{fig:constrained-eig-opt}. In general, the intersection of the unit ball and eigenvectors will give you local maxima/minima of this problem. 
 
-\begin{figure}[h] \label{fig:constrained-eig-opt}
+\begin{figure}[h]
 \centering
 \includegraphics[width=10cm]{figs/PCA/Constrained-opt-eig.png}
 \caption{Illustration of constrained optimization problem. The objective is a parabaloid constrained to the unit sphere. The parabaloid should look less symmetrical, but my drawing skills aren't great. Below, the unit sphere is unwrapped and the constrained objective is shown.}
+\label{fig:constrained-eig-opt}
 \end{figure}
 
 TODO: Connect this to the variational characterization of eigenvalues? 
@@ -152,17 +153,19 @@ v_r^\T
 \end{equation}
 where $z\in \R^d$ is the point we wish to project. Note that $P: \R^d\to\R^d$. The projection $P$ takes data from $\R^d$ and embeds it onto a lower dimensional subspace in $\R^d$. The dimension of the subspace and the rank of $P$ are both $r$. This is illustrated in Figure \ref{fig:pca-proj}. 
 
-\begin{figure}[h] \label{fig:pca-proj}
+\begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{figs/PCA/PCA-proj.jpeg}
 \caption{The projection operator $P$ embeds data to a lower dimensional subspace in $\R^d$}
+\label{fig:pca-proj}
 \end{figure}
 
 Note that in the sum in \eqref{eq:PCA-proj}, each eigenvector $v_i$ is multiplied by a coefficient $v_i^/T z$. We refer to these as the latent codes. In one to three dimensions, one may visualize these by treating them as coefficients of the canonical basis. This is illustrated in Figure \ref{fig:pca-latent-codes}. 
-\begin{figure}[h] \label{fig:pca-latent-codes}
+\begin{figure}[h]
 \centering
 \includegraphics[width=10cm]{figs/PCA/PCA-latent-code.jpeg}
 \caption{The projection operator $P$ embeds data to a lower dimensional subspace in $\R^d$.}
+\label{fig:pca-latent-codes}
 \end{figure}
 Let
 $$

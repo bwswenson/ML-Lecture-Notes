@@ -47,10 +47,11 @@ The linear mapping $A$ is a bijection between $\row A$ and $\col A$ (see Exercis
 
 Figure \ref{fig:pseudo-inv}, taken from a Gilbert Strang paper, clearly illustrates the action of $A^+$. 
 
-\begin{figure} \label{fig:pseudo-inv}
+\begin{figure}
 \centering
 \includegraphics[scale = .5]{/least_squares/pseudo-inv}
 \caption{Action of pseudo-inverse (taken from Strang paper).}
+\label{fig:pseudo-inv}
 \end{figure}
 
 The matrix $A^+$ satisfying these properties can be clearly derived from the SVD. Let $\myrank A = r$, and let $(u_i)_{i=1}^r$ and $(v_i)_{i=1}^r$ be as defined in Section \ref{sec:SVD}, so that these are orthonormal bases of the column and row spaces respectively. We have $Av_i = \sigma u_i$. We would like an inverse satisfying 
