@@ -18,7 +18,8 @@ Topics covered include
 - High-dimensional spaces and concentration of measure
 - Automatic differentiation, including MNIST classification with NumPy
 - Numerically stable softmax
-- Other topics: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
+
+The folder "Other topics" contains notes or code written by others. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
 
 Books used in writing these notes include
 - S. Shalev-Shwartz and S. Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press, 2014.
