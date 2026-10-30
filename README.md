@@ -19,6 +19,27 @@ Topics covered include
 - Automatic differentiation, including MNIST classification with NumPy
 - Numerically stable softmax
 
+Topics with written notes (PDF or LaTeX), most with accompanying code:
+- Linear algebra, calculus and analysis, change of variables: `Latex notes/Some personal notes`
+- Least squares and linear regression: `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`
+- Ridge regression: `Ridge regression`
+- PCA: `Latex notes/PCA`, `Lecture notes/Least squares notes`
+- Automatic differentiation, logistic regression, MNIST with NumPy: `autodiff/lecture notes`
+- Gaussian processes: `GPs/lecture notes`
+- Variational autoencoders and the reparameterization trick: `VAEs/Latex notes` (LaTeX source only), `Reparameterization trick lecture code`
+- Support vector machines: `SVM`
+- Policy gradient and REINFORCE: `Policy gradient`
+- PAC learning: `PAC learning`
+- High-dimensional spaces and concentration of measure: `concentration of measure`, `Latex notes/Some personal notes`
+
+Topics with code only:
+- MLE and MAP estimation: `MLE and MAP`
+- Kernel PCA: `Kernel PCA`
+- k-nearest neighbors: `KNN`
+- AdaBoost: `adaboost`
+- MCMC: `MCMC lecture code`
+- Numerically stable softmax: `stable softmax`
+
 The folder "Other topics" contains notes or code written by others. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
 
 Books used in writing these notes include
@@ -29,6 +50,7 @@ Books used in writing these notes include
 - A. Blum, J. Hopcroft, and R. Kannan, *Foundations of Data Science* (Chapter 1, High-Dimensional Space).
 - S. Roch, *Mathematical Methods in Data Science* ([online textbook](https://mmids-textbook.github.io/)).
 
+<!--
 Other sources include
 - D. P. Kingma and M. Welling, [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114), 2013.
 - D. M. Blei, A. Kucukelbir, and J. D. McAuliffe, Variational Inference: A Review for Statisticians, 2017.
@@ -36,3 +58,4 @@ Other sources include
 - UCL Smart Geometry, [Deep Learning for Graphics VAE notebook](https://colab.research.google.com/github/smartgeometry-ucl/dl4g/blob/master/variational_autoencoder.ipynb).
 - G. Strang, figure on the action of the pseudoinverse.
 - R. Tibshirani, notes on ridge regression and LASSO.
+-->
