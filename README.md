@@ -1,18 +1,18 @@
 This repository contains lecture notes and code demos for core ML topics. 
 
-Topics with written notes (hand written or LaTeX), most with accompanying code:
-- Linear algebra (SVD, pseudoinverse, low-rank approximation): `Latex notes/Some personal notes`
-- Calculus and analysis (the Laplacian, Lagrange multipliers, change of variables, polar coordinates): `Latex notes/Some personal notes`
-- Least squares and linear regression (pseudoinverse solution, Bayesian linear regression): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`
+Topics with written notes (handwritten or LaTeX), most with accompanying code:
+- Linear algebra (SVD, pseudoinverse, low-rank approximation): `Latex notes/Some personal notes` (personal notes)
+- Calculus and analysis (the Laplacian, Lagrange multipliers, change of variables, polar coordinates): `Latex notes/Some personal notes` (personal notes)
+- Least squares and linear regression (pseudoinverse solution, Bayesian linear regression): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes` (personal notes)
 - Ridge regression: `Ridge regression`
-- PCA (maximum variance perspective, connection to the SVD, kernel PCA): `Latex notes/PCA`, `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`, `Kernel PCA`
+- PCA (maximum variance perspective, connection to the SVD, kernel PCA): `Latex notes/PCA`, `Lecture notes/Least squares notes`, `Latex notes/Some personal notes` (personal notes), `Kernel PCA`
 - Automatic differentiation, logistic regression, MNIST with NumPy: `autodiff/lecture notes`
 - Gaussian processes: `GPs/lecture notes`
 - Variational autoencoders and the reparameterization trick: `VAEs/Latex notes` (LaTeX source only), `Reparameterization trick lecture code`
 - Support vector machines: `SVM`
 - Policy gradient and REINFORCE: `Policy gradient`
 - PAC learning: `PAC learning`
-- High-dimensional spaces and concentration of measure (volume of balls and cubes, high-dimensional Gaussians): `concentration of measure`, `Latex notes/Some personal notes`
+- High-dimensional spaces and concentration of measure (volume of balls and cubes, high-dimensional Gaussians): `concentration of measure`, `Latex notes/Some personal notes` (personal notes)
 
 Topics with code only:
 - MLE and MAP estimation: `MLE and MAP`
@@ -21,7 +21,7 @@ Topics with code only:
 - MCMC: `MCMC lecture code`
 - Numerically stable softmax: `stable softmax`
 
-Some of these notes were prepared for lectures in a seminar ML seminar. The personal notes, found at [`Latex notes/Some personal notes`](Latex%20notes/Some%20personal%20notes), contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
+Some of these notes were prepared for lectures in an ML seminar. The personal notes, found at [`Latex notes/Some personal notes`](Latex%20notes/Some%20personal%20notes), contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
 
 The folder "Other topics" contains notes or code written by others, kept here only as a useful reference. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
 
