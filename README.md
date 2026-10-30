@@ -1,40 +1,21 @@
 This repository contains lecture notes and code demos for core ML topics. 
 
-Topics covered include
-- Linear algebra (SVD, pseudoinverse, low-rank approximation, matrix decompositions)
-- Calculus and analysis for ML, including change of variables
-- Least squares and linear regression (Gauss-Markov, ridge regression, Bayesian linear regression)
-- Logistic regression and cross-entropy loss
-- MLE and MAP estimation
-- PCA and kernel PCA
-- k-nearest neighbors
-- Support vector machines
-- AdaBoost
-- Gaussian processes
-- Variational autoencoders and the reparameterization trick
-- MCMC
-- Policy gradient and REINFORCE
-- PAC learning
-- High-dimensional spaces and concentration of measure
-- Automatic differentiation, including MNIST classification with NumPy
-- Numerically stable softmax
-
 Topics with written notes (PDF or LaTeX), most with accompanying code:
-- Linear algebra, calculus and analysis, change of variables: `Latex notes/Some personal notes`
-- Least squares and linear regression: `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`
+- Linear algebra (SVD, pseudoinverse, low-rank approximation): `Latex notes/Some personal notes`
+- Calculus and analysis (the Laplacian, Lagrange multipliers, change of variables, polar coordinates): `Latex notes/Some personal notes`
+- Least squares and linear regression (pseudoinverse solution, Bayesian linear regression): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`
 - Ridge regression: `Ridge regression`
-- PCA: `Latex notes/PCA`, `Lecture notes/Least squares notes`
+- PCA (maximum variance perspective, connection to the SVD, kernel PCA): `Latex notes/PCA`, `Lecture notes/Least squares notes`, `Latex notes/Some personal notes`, `Kernel PCA`
 - Automatic differentiation, logistic regression, MNIST with NumPy: `autodiff/lecture notes`
 - Gaussian processes: `GPs/lecture notes`
 - Variational autoencoders and the reparameterization trick: `VAEs/Latex notes` (LaTeX source only), `Reparameterization trick lecture code`
 - Support vector machines: `SVM`
 - Policy gradient and REINFORCE: `Policy gradient`
 - PAC learning: `PAC learning`
-- High-dimensional spaces and concentration of measure: `concentration of measure`, `Latex notes/Some personal notes`
+- High-dimensional spaces and concentration of measure (volume of balls and cubes, high-dimensional Gaussians): `concentration of measure`, `Latex notes/Some personal notes`
 
 Topics with code only:
 - MLE and MAP estimation: `MLE and MAP`
-- Kernel PCA: `Kernel PCA`
 - k-nearest neighbors: `KNN`
 - AdaBoost: `adaboost`
 - MCMC: `MCMC lecture code`
