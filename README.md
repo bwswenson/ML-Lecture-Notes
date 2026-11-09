@@ -23,8 +23,6 @@ Topics with code only:
 
 Some of these notes were prepared for lectures in an ML seminar. The personal notes, found at [`Latex notes/Some personal notes`](Latex%20notes/Some%20personal%20notes), contain notes on some topics of interest. These are not polished and have not been reviewed. But may contain useful ideas that could be converted to readable lecture notes. 
 
-The folder "Other topics" contains notes or code written by others, kept here only as a useful reference. Topics include: Bayes by Backprop, Bayesian inference (hierarchical linear Gaussian models), conjugate gradient, decision trees, naive Bayes, Karpathy micrograd repo
-
 Books used in writing these notes include
 - S. Shalev-Shwartz and S. Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press, 2014.
 - C. M. Bishop, *Pattern Recognition and Machine Learning*, Springer, 2006.
