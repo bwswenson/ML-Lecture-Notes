@@ -5,7 +5,7 @@ Topics with written notes (handwritten or LaTeX), most with accompanying code:
 - Calculus and analysis (the Laplacian, Lagrange multipliers, change of variables, polar coordinates): `Latex notes/Some personal notes` (personal notes)
 - Least squares and linear regression (pseudoinverse solution, Bayesian linear regression): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes` (personal notes)
 - Ridge regression: `Ridge regression`
-- PCA (maximum variance perspective, connection to the SVD, kernel PCA): `Latex notes/PCA`, `Lecture notes/Least squares notes`, `Latex notes/Some personal notes` (personal notes), `Kernel PCA`
+- PCA (maximum variance perspective, connection to the SVD, kernel PCA): `Lecture notes/Least squares notes`, `Latex notes/Some personal notes` (personal notes), `Kernel PCA`
 - Automatic differentiation, logistic regression, MNIST with NumPy: `autodiff/lecture notes`
 - Gaussian processes: `GPs/lecture notes`
 - Variational autoencoders and the reparameterization trick: `VAEs/Latex notes` (LaTeX source only), `Reparameterization trick lecture code`
